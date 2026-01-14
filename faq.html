@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Job Link | FAQ</title>
+  <link rel="stylesheet" href="faq.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* ===== Global Styles ===== */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+        font-family: Arial, sans-serif;
+        background: #f9fafb;
+        color: #222;
+    }
+
+    /* ===== Header ===== */
+    header {
+      background:white;
+      color:#60a5fa;
+      padding:12px 25px;
+      position: sticky;
+      top:0;
+      z-index:1000;
+      box-shadow:0 2px 5px rgba(0,0,0,0.1);
+      transition:0.3s;
+    }
+
+    .container {
+      display:flex;
+      align-items:center;
+      justify-content:center; /* Center nav items */
+      max-width:1300px;
+      margin:auto;
+      position: relative; /* For absolute logo */
+    }
+
+    /* Logo */
+    .logo {
+      position: absolute;
+      left: 25px;
+    }
+    .logo a {
+      display:flex;
+      align-items:center;
+      color:#60a5fa;
+      text-decoration:none;
+      font-size:28px;
+      font-weight:700;
+      letter-spacing:1px;
+    }
+    .logo img {height:40px; margin-right:8px;}
+
+    /* Nav */
+    nav ul {
+      list-style:none;
+      display:flex;
+      align-items:center;
+      gap:15px;
+    }
+    nav ul li {position:relative;}
+    nav ul li a {
+      color:#60a5fa;
+      text-decoration:none;
+      padding:10px 18px;
+      display:block;
+      font-weight:500;
+      border-radius:5px;
+      transition:0.3s;
+    }
+    nav ul li a:hover {
+      background:#2563eb;
+      color:#fff;
+    }
+
+    /* Dropdown */
+    .dropdown-menu {
+      display:none;
+      position:absolute;
+      top:100%;
+      left:0;
+      background:white;
+      min-width:220px;
+      border-radius:5px;
+      overflow:hidden;
+      box-shadow:0 5px 12px rgba(0,0,0,0.15);
+      z-index:1000;
+      transition:0.3s;
+    }
+    .dropdown-menu li a {padding:10px 15px;}
+    .dropdown:hover .dropdown-menu {display:block;}
+
+    nav ul li a i {margin-left:5px; transition:0.3s;}
+    nav ul li:hover a i {transform: rotate(180deg);}
+
+    /* Hamburger */
+    .hamburger {display:none; font-size:26px; cursor:pointer; color:#2563eb;}
+
+    /* Responsive */
+    @media(max-width:992px){
+      nav ul {
+        position:fixed;
+        top:0;
+        left:-100%;
+        height:100%;
+        width:260px;
+        flex-direction:column;
+        padding-top:70px;
+        background:#60a5fa;
+        transition:0.3s;
+      }
+      nav ul.show {left:0;}
+      nav ul li {width:100%;}
+      nav ul li a {padding:15px 20px;}
+      .dropdown-menu {position:static; display:none;}
+      .dropdown.active .dropdown-menu {display:block;}
+      .hamburger {display:block; position: absolute; right: 25px;}
+    }
+
+    /* ===== Search Box ===== */
+    .search-box {
+        text-align: center;
+        padding: 20px;
+    }
+    .search-box input {
+        width: 100%;
+        max-width: 500px;
+        padding: 12px 20px;
+        border-radius: 50px;
+        border: 1px solid #ddd;
+        font-size: 1rem;
+    }
+
+    /* ===== FAQ ===== */
+    .faq-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .category h2 {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+        color: #ffffff;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 5px;
+    }
+    .faq {
+        background: #fff;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        border-left: 4px solid #60a5fa;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        animation: fadeInUp 0.5s ease forwards;
+        opacity: 0;
+    }
+    .faq.active {
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .faq-question {
+        padding: 15px 20px;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        padding: 0 20px;
+        transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+    .faq.active .faq-answer {
+        max-height: 200px;
+        padding: 15px 20px;
+    }
+    .faq .icon {
+        transition: transform 0.3s ease;
+    }
+    .faq.active .icon {
+        transform: rotate(180deg);
+    }
+    @keyframes fadeInUp {
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== Footer ===== */
+    .footer {
+      background: #111827;
+      color: #d1d5db;
+      padding: 3rem 1rem;
+      margin-top: 50px;
+    }
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+    }
+    .footer-col h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: #2563eb;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .footer-col p, .footer-col a {
+      text-decoration: none;
+      color: #d1d5db;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.3s ease;
+    }
+    .footer-col a:hover {
+      color: #2563eb;
+    }
+    .social-icons{
+      display: flex;
+      flex-direction: column;
+    }
+    .social-icons a { font-size: 1.1rem; }
+    .footer-credit {
+      text-align: center;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #9ca3af;
+      border-top: 1px solid #374151;
+      padding-top: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .footer-container {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        text-align: center;
+      }
+      .footer-col h3, .footer-col p, .footer-col a {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <!-- Logo -->
+      <div class="logo">
+        <a href="home.php"><img src="assets/logo.png"></a>
+      </div>
+
+      <!-- Navigation -->
+      <nav>
+        <ul class="nav-links">
+          <li><a href="home.php">Home</a></li>
+          <li><a href="job.php">Jobs</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="ContactPage.html">Contact</a></li>
+          <li class="dropdown">
+            <a href="#">More <i class="fa-solid fa-chevron-down"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="privacy-policy.html">Privacy</a></li>
+              <li><a href="terms-of-use.html">Terms</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Hamburger -->
+      <div class="hamburger"><i class="fa-solid fa-bars"></i></div>
+    </div>
+  </header>
+
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search FAQs...">
+  </div>
+
+  <div class="faq-container" id="faqContainer">
+    <div class="category">
+      <h2>Account Setup</h2>
+      <div class="faq">
+        <div class="faq-question">How do I create an account? <span class="icon">▼</span></div>
+        <div class="faq-answer">Click on the "Sign Up" button on the homepage, fill in your details, and verify your email to create an account.</div>
+      </div>
+      <div class="faq">
+        <div class="faq-question">I forgot my password. What should I do? <span class="icon">▼</span></div>
+        <div class="faq-answer">Click on "Forgot Password?" at login, enter your email, and follow the instructions to reset it.</div>
+      </div>
+    </div>
+
+    <div class="category">
+      <h2>Job Applications</h2>
+      <div class="faq">
+        <div class="faq-question">How can I apply for jobs? <span class="icon">▼</span></div>
+        <div class="faq-answer">Visit the job listings page, select a job, and click the "Apply" button. Fill in the required details and upload your resume.</div>
+      </div>
+      <div class="faq">
+        <div class="faq-question">Can I track my job applications? <span class="icon">▼</span></div>
+        <div class="faq-answer">Yes, go to your profile dashboard to see the status of your applications.</div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3><i class="fa-solid fa-briefcase"></i> KaamSathi</h3>
+        <p>Empowering job seekers and employers to build a better future together.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Contact</h3>
+        <p><i class="fa-solid fa-phone"></i> 061-550256</p>
+        <p><i class="fa-solid fa-envelope"></i> kaamsathi@gmail.com</p>
+      </div>
+      <div class="footer-col">
+        <h3>Follow Us</h3>
+        <div class="social-icons">
+          <a href="https://www.facebook.com/"><i class="fa-brands fa-facebook"></i> Facebook</a>
+          <a href="https://www.twitter.com/"><i class="fa-brands fa-twitter"></i> Twitter</a>
+          <a href="https://www.linkedin.com/"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+          <a href="https://www.instagram.com/"><i class="fa-brands fa-instagram"></i> Instagram</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-credit">
+      © 2026 KaamSathi. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    // Toggle FAQs
+    document.querySelectorAll('.faq-question').forEach(q => {
+      q.addEventListener('click', () => {
+        const faq = q.parentElement;
+        faq.classList.toggle('active');
+      });
+    });
+
+    // Search FAQs
+    const searchInput = document.getElementById("searchInput");
+    const faqs = document.querySelectorAll(".faq");
+
+    searchInput.addEventListener("keyup", () => {
+      const filter = searchInput.value.toLowerCase();
+      faqs.forEach(faq => {
+        const question = faq.querySelector(".faq-question").textContent.toLowerCase();
+        const answer = faq.querySelector(".faq-answer").textContent.toLowerCase();
+        faq.style.display = (question.includes(filter) || answer.includes(filter)) ? "" : "none";
+      });
+    });
+  </script>
+</body>
+</html>
